@@ -2,7 +2,9 @@
 
 namespace bs\dbManager;
 
-use creocoder\flysystem\LocalFilesystem as CreocoderLocalFileSystem;
+use bs\dbManager\contracts\IDumpManager;
+use bs\dbManager\models\MysqlDumpManager;
+use bs\dbManager\models\PostgresDumpManager;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Module as BaseModule;
@@ -13,9 +15,6 @@ use yii\di\Instance;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\StringHelper;
-use bs\dbManager\contracts\IDumpManager;
-use bs\dbManager\models\MysqlDumpManager;
-use bs\dbManager\models\PostgresDumpManager;
 
 /**
  * Class Module.
@@ -99,11 +98,6 @@ class Module extends BaseModule
 
 
     public $lastFiles = 3;
-
-    /**
-     * @var string the flysystem driver to be used.
-     */
-    public $flySystemDriver = CreocoderLocalFileSystem::class;
 
     /**
      * @throws InvalidConfigException

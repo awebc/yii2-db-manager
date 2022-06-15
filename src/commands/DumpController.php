@@ -2,6 +2,7 @@
 
 namespace bs\dbManager\commands;
 
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
@@ -101,14 +102,8 @@ class DumpController extends Controller
                     if (Yii::$app->has('backupStorage')) {
 						Console::output('Opening: '.$dumpPath);
 
-						$storage = Yii::createObject([
-							'class' => $this->getModule()->flySystemDriver,
-							'path' => dirname($dumpPath),
-						]);
-                        //$dumpText = fopen($dumpPath, 'r+');
+                        $storage = new LocalFilesystemAdapter(dirname($dumpPath));
                         $uploadResult = Yii::$app->backupStorage->writeStream(StringHelper::basename($dumpPath), $storage->readStream(StringHelper::basename($dumpPath)));
-                        //fclose($dumpText);
-						//Console::output(print_r($uploadResult, 1));
                     } else {
                         Console::output('Storage component is not configured.');
                     }

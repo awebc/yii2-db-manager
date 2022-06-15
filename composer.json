@@ -21,10 +21,12 @@
         "source": "https://github.com/Beaten-Sect0r/yii2-db-manager"
     },
     "require": {
+        "ext-pdo": "*",
+
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "symfony/process": "2.8.*|3.*|4.*",
-        "creocoder/yii2-flysystem": "*"
+        "league/flysystem": "^3.0.21"
     },
     "autoload": {
         "psr-4": {
