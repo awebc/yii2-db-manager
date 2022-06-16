@@ -200,7 +200,7 @@ class DefaultController extends Controller
      */
     protected function runProcess($command, $isRestore = false)
     {
-        $process = new Process($command);
+        $process = Process::fromShellCommandline($command);
         $process->setTimeout($this->getModule()->timeout);
         $process->run();
         if ($process->isSuccessful()) {
@@ -219,7 +219,7 @@ class DefaultController extends Controller
      */
     protected function runProcessAsync($command, $isRestore = false)
     {
-        $process = new Process($command);
+        $process = Process::fromShellCommandline($command);
         $process->setTimeout($this->getModule()->timeout);
         $process->start();
         $pid = $process->getPid();
@@ -249,7 +249,7 @@ class DefaultController extends Controller
         $newActivePids = [];
         if (!empty($activePids)) {
             foreach ($activePids as $pid => $cmd) {
-                $process = new Process('ps -p ' . $pid);
+                $process = Process::fromShellCommandline('ps -p ' . $pid);
                 $process->setTimeout($this->getModule()->timeout);
                 $process->run();
                 if (!$process->isSuccessful()) {

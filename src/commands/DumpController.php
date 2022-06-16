@@ -93,7 +93,7 @@ class DumpController extends Controller
             $dumpPath = $manager->makePath($this->getModule()->path, $dbInfo, $dumpOptions);
             $dumpCommand = $manager->makeDumpCommand($dumpPath, $dbInfo, $dumpOptions);
             Yii::trace(compact('dumpCommand', 'dumpPath', 'dumpOptions'), get_called_class());
-            $process = new Process($dumpCommand, null, null, null, 60 * 30);
+            $process = Process::fromShellCommandline($dumpCommand, null, null, null, 60 * 30);
             $process->setTimeout($this->getModule()->timeout);
             $process->run();
             if ($process->isSuccessful()) {
